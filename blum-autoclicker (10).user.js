@@ -406,30 +406,8 @@ try {
     .pause-resume-btn:hover {
       background-color: #7cb668;
     }
-    .social-buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: space-between;
-      white-space: nowrap;
-    }
-    .social-button {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 8px;
-      border-radius: 4px;
-      background-color: #282c34;
-      color: #abb2bf;
-      text-decoration: none;
-      font-size: 12px;
-      transition: background-color 0.3s;
-    }
     .social-button:hover {
       background-color: #4b5263;
-    }
-    .social-button img {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
     }
     .settings-button {
       position: fixed;
@@ -474,23 +452,6 @@ try {
 
 		const inputContainer = document.createElement('div');
 		inputContainer.className = 'setting-input';
-
-		function AutoClaimAndStart() {
-			setInterval(() => {
-				const claimButton = document.querySelector('button.kit-button.is-large.is-drop.is-fill.button.is-done');
-				const startFarmingButton = document.querySelector('button.kit-button.is-large.is-primary.is-fill.button');
-				const continueButton = document.querySelector('button.kit-button.is-large.is-primary.is-fill.btn');
-				if (claimButton) {
-					claimButton.click();
-				} else if (startFarmingButton) {
-					startFarmingButton.click();
-				} else if (continueButton) {
-					continueButton.click();
-				}
-			}, Math.floor(Math.random() * 5000) + 5000);
-		}
-
-		AutoClaimAndStart();
 
 		let input;
 		if (type === 'checkbox') {
