@@ -1,15 +1,3 @@
-// ==UserScript==
-// @name         Blum Autoclicker
-// @version      2.5
-// @namespace    Violentmonkey Scripts
-// @author       mudachyo
-// @match        https://telegram.blum.codes/*
-// @grant        none
-// @icon         https://cdn.prod.website-files.com/65b6a1a4a0e2af577bccce96/65ba99c1616e21b24009b86c_blum-256.png
-// @downloadURL  https://github.com/mudachyo/Blum/raw/main/blum-autoclicker.user.js
-// @updateURL    https://github.com/mudachyo/Blum/raw/main/blum-autoclicker.user.js
-// @homepage     https://github.com/mudachyo/Blum
-// ==/UserScript==
 
 let GAME_SETTINGS = {
 	minBombHits: Math.floor(Math.random() * 2),
@@ -406,30 +394,8 @@ try {
     .pause-resume-btn:hover {
       background-color: #7cb668;
     }
-    .social-buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: space-between;
-      white-space: nowrap;
-    }
-    .social-button {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 8px;
-      border-radius: 4px;
-      background-color: #282c34;
-      color: #abb2bf;
-      text-decoration: none;
-      font-size: 12px;
-      transition: background-color 0.3s;
-    }
     .social-button:hover {
       background-color: #4b5263;
-    }
-    .social-button img {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
     }
     .settings-button {
       position: fixed;
