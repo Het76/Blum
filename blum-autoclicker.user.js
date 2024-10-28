@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Blum Autoclicker
-// @version      2.4
+// @version      2.5
 // @namespace    Violentmonkey Scripts
 // @author       mudachyo
 // @match        https://telegram.blum.codes/*
@@ -14,7 +14,7 @@
 let GAME_SETTINGS = {
 	minBombHits: Math.floor(Math.random() * 2),
 	minIceHits: Math.floor(Math.random() * 2) + 2,
-	flowerSkipPercentage: Math.floor(Math.random() * 11) + 5,
+	flowerSkipPercentage: Math.floor(Math.random() * 11) + 15,
 	minDelayMs: 500,
 	maxDelayMs: 999,
 	autoClickPlay: false,
@@ -73,11 +73,9 @@ try {
 	}
 
 	function processBomb(item) {
-		if (gameStats.bombHits < GAME_SETTINGS.minBombHits) {
-			gameStats.score = 0;
-			clickElement(item);
-			gameStats.bombHits++;
-		}
+		gameStats.score = 0;
+		clickElement(item);
+		gameStats.bombHits++;
 	}
 
 	function processIce(item) {
@@ -147,21 +145,38 @@ try {
 	function getNewGameDelay() {
 		return Math.floor(Math.random() * (GAME_SETTINGS.maxDelayMs - GAME_SETTINGS.minDelayMs + 1) + GAME_SETTINGS.minDelayMs);
 	}
-
 	function checkAndClickPlayButton() {
 		const playButtons = document.querySelectorAll('button.kit-button.is-large.is-primary, a.play-btn[href="/game"], button.kit-button.is-large.is-primary');
 
 		playButtons.forEach(button => {
 			if (!isGamePaused && GAME_SETTINGS.autoClickPlay && (/Play/.test(button.textContent) || /Continue/.test(button.textContent))) {
 				setTimeout(() => {
+					gameStats.isGameOver = true;
+					resetGameStats();
 					button.click();
-					gameStats.isGameOver = false;
 				}, getNewGameDelay());
 			}
 		});
 	}
 
+	function checkAndClickResetButton() {
+		const errorPage = document.querySelector('div[data-v-26af7de6].error.page.wrapper');
+		if (errorPage) {
+			const resetButton = errorPage.querySelector('button.reset');
+			if (resetButton) {
+				resetButton.click();
+			}
+		}
+	}
 
+	function continuousErrorCheck() {
+		checkAndClickResetButton();
+		const delay = Math.floor(Math.random() * 1000) + 2000;
+		setTimeout(continuousErrorCheck, delay);
+	}
+
+	continuousErrorCheck();
+	
 	function continuousPlayButtonCheck() {
 		checkAndClickPlayButton();
 		setTimeout(continuousPlayButtonCheck, 1000);
@@ -459,6 +474,23 @@ try {
 
 		const inputContainer = document.createElement('div');
 		inputContainer.className = 'setting-input';
+
+		function AutoClaimAndStart() {
+			setInterval(() => {
+				const claimButton = document.querySelector('button.kit-button.is-large.is-drop.is-fill.button.is-done');
+				const startFarmingButton = document.querySelector('button.kit-button.is-large.is-primary.is-fill.button');
+				const continueButton = document.querySelector('button.kit-button.is-large.is-primary.is-fill.btn');
+				if (claimButton) {
+					claimButton.click();
+				} else if (startFarmingButton) {
+					startFarmingButton.click();
+				} else if (continueButton) {
+					continueButton.click();
+				}
+			}, Math.floor(Math.random() * 5000) + 5000);
+		}
+
+		AutoClaimAndStart();
 
 		let input;
 		if (type === 'checkbox') {
